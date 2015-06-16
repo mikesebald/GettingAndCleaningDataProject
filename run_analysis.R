@@ -4,9 +4,10 @@
 setwd("cleaningData/project/")
 
 # Read the feature names to use them later as column names. Considering the different project members this is probably the least common denominator.
-# Also read the activity labels to add them to each row - which enhances readability from my point of view.
-features <- read.table("features.txt")
+# Also read the activity labels, clean them and add them to each row - which enhances readability from my point of view.
 activity_labels <- read.table("activity_labels.txt")
+features <- read.table("features.txt")
+features[,2] <- gsub("[-,()]", "", features[,2])
 
 # TEST data set
 #--------------
@@ -60,3 +61,4 @@ mean_std_set <- both_sets[, c(1, 2, relevant_columns)]
 # I guess I did 3 and 4 further above
 
 # 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+final_set <- mean_std_set %>% group_by(subject, activity) %>% summarise_each(funs(mean))
