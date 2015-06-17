@@ -12,10 +12,13 @@ features[,2] <- gsub("[-,()]", "", features[,2])
 features[,2] <- gsub("Acc", "Accelerometer", features[,2])
 features[,2] <- gsub("Gyro", "Gyroscope", features[,2])
 features[,2] <- gsub("Mag", "Magnitude", features[,2])
+features[,2] <- gsub("Freq", "Frequency", features[,2])
 features[,2] <- gsub("mean", "Mean", features[,2])
 features[,2] <- gsub("std", "Std", features[,2])
+features[,2] <- gsub("gravity", "Gravity", features[,2])
 features[,2] <- gsub("^t", "Time", features[,2])
 features[,2] <- gsub("^f", "FFT", features[,2])
+column_names <- c("SubjectID", "Activity", as.character(features[,2]))
 
 
 # Process TEST data set
@@ -30,7 +33,7 @@ y_activity_names_test <- merge(activity_labels, y_test)
 
 # Put all together and set decent column names 
 test_set <- cbind(subject_test, y_activity_names_test[,2], x_test)
-colnames(test_set) <- colnames <- c("subject", "activity", as.character(features[,2]))
+colnames(test_set) <- column_names
 
 # Do the same for the TRAIN data set
 #-----------------------------------
@@ -47,7 +50,7 @@ y_activity_names_train <- merge(activity_labels, y_train)
 #######################################################################
 # Put all together and set decent column names
 train_set <- cbind(subject_train, y_activity_names_train[,2], x_train)
-colnames(train_set) <- colnames <- c("SubjectID", "Activity", as.character(features[,2]))
+colnames(train_set) <- column_names
 
 ##################################################################
 # 1. Merge the training and the test sets to create one data set.
@@ -74,7 +77,7 @@ mean_std_set <- both_sets[, c(1, 2, relevant_columns)]
 # 5. From the data set in step 4, creates a second, independent tidy data set with the average of
 # each variable for each activity and each subject.
 #################################################################################################
-final_set <- mean_std_set %>% group_by(subject, activity) %>% summarise_each(funs(mean))
+final_set <- mean_std_set %>% group_by(SubjectID, Activity) %>% summarise_each(funs(mean))
 
 # finally write everything to disk
 write.table(final_set, "final_set.txt", row.names = FALSE)
