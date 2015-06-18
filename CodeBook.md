@@ -3,7 +3,9 @@ Code  Book
 The tidy data set contains:
 
 Column 1, "SubjectID": the ID (a number) of the individual who carried out the activity (1, 2, 3, ...)
+
 Column 2, "Activity": the activity performed (WALKING, WALKING_UPSAIRS, SITTING, ...)
+
 Columns 3-88: the mean values of each measurement by individual and by activity
 
 Columns 3-88 are named based on the naming used in features.txt. Please see the readme.md for further details.
