@@ -14,3 +14,9 @@ The naming of columns 3-88 has been "improved" by
 - capitalizing "std" and "mean"
 - and a few other improvements which should improve readability
 - Example: "tBodyAcc-mean()-X" becomes "TimeBodyAccelerometerMeanX"
+
+In contrast to the original data set, the tidy data set only contains the columns which store mean and standard 
+deviation values (plus 2 columns in front for the individual and the activity).
+
+The tidy data set also aggregates the original data by calculation the mean for each column by subject and 
+by activity.
